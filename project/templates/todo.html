@@ -1,0 +1,97 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+<div class="heading position-relative w-100">
+  <a href="{% url 'create' %}" class="btn btn-light mt-5 d-flex m-5 text-uppercase fs-5 w-95">Create</a>
+    <form method="GET">
+      {% csrf_token %} 
+      {{ filter.form.as_p }}
+      <button type="submit" class="btn btn-light mt-5 d-flex align-self-center m-5 text-uppercase fs-5 w-95 text-center">Search</button>
+    </form>
+</div>
+
+{% for todo in todos %}
+<section class=" w-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100" >
+      <div class="col col-lg-9 col-xl-7 w-100">
+        <div class="card rounded-3" >
+          <div class="card-body p-4">
+            <h4 class="text-center my-3 pb-3" >{{todo.title}}</h4>
+            <h4 class="text-center my-3 pb-3" >{{todo.user}}</h4>
+            <form class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2" method="POST">
+              {% csrf_token %}
+              <div class="col-12">
+              </div>
+              <div class="col-6">
+                <a class="btn btn-outline-primary" href="{% url 'createTodoItem' todo.id %}">Create</a>
+                <a class="btn btn-outline-success" href="update/{{todo.id}}">Update</a>
+                <a href="delete/{{todo.id}}" class="btn btn-outline-danger">Delete All</a>
+              </div>
+            </form>
+            <table class="table mb-4">
+              <thead>
+                <tr>
+                  <th scope="col">No.</th>
+                  <th scope="col">Date Created</th>
+                  <th scope="col">Item Title</th>
+                  <th scope="col">Item Description</th>
+                  <th scope="col">Completed</th>
+                </tr>
+              </thead>
+              
+              <form method="POST">
+                {% csrf_token %}
+                <tbody>
+                  {% for item in todo.todoitem_set.all %}
+                  <tr>
+                    <th scope="row">{{item.id}}</th>
+                    <td>{{item.itemCreated}}</td>
+                    <td>{{item.item_Title}}</td>
+                    <td> {{item.description}} </td>
+                    <td> <input type="checkbox" name="" id=""> </td>
+                    <td>
+                      <a href="deleteTodoItem/{{item.id}}" class="card-link btn btn-outline-danger">Delete</a>
+                      <a href="updateTodoItem/{{item.id}}" class="card-link btn btn-outline-success">Update</a>
+                      <a href="detailed/{{item.id}}" class="card-link btn btn-outline-info">Detailed</a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </form>
+              
+            </table>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+{% endfor %}
+
+<!-- <h1>Search</h1>
+<form method="GET">
+  {% csrf_token %}
+  {{filter.form.as_p}}
+  <button type="submit" class="btn btn-danger">Search</button>
+</form>
+
+
+
+
+
+{% for todo in todos %}
+<div class="card mt-1 bg-dark m-2 text-light" style="width: 18rem">
+  <div class="card-body ">
+    <h5 class="card-title">{{todo.title}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">My Todo List</h6>
+    <p class="card-text">{{todo.memo}}</p>
+    <p class="card-text"><h5>{{todo.is_compeleted}}</h5></p>
+    <a href="update/{{todo.id}}" class="card-link btn btn-outline-light">Update</a>
+    <a href="delete/{{todo.id}}" class="card-link btn btn-outline-danger">Delete</a>
+  </div>
+</div>
+{% endfor %} {% endblock content %} -->
+

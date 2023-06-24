@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% block content %}
+<form method = "POST">
+    <div class="container">
+        <h1 class="text-light"> Create TodoItem</h1>
+        {% csrf_token %}
+        <label for="item_Title" class="text-light">item title</label>
+        <input type="text" name="item_Title" id="item_Title" class="form-control">
+        <br>
+        <label for="description" class="text-light">item description</label>
+        <input type="text" name="description" id="description" class="form-control">
+        <br>
+        <button type="submit" class="btn btn-dark mb-4 w-25 text-uppercase fs-5 text-light">Create</button>
+
+    </div>
+</form>
+
+{% endblock content %}

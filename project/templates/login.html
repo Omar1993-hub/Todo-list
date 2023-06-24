@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+    <div class="container">
+        <form method="POST" class="form mt-4 p-5">
+            {% csrf_token %}
+            <input type="text" class="form-control mb-3" name="username" placeholder="Enter Your Username">
+            <input type="password" class="form-control" name="password" placeholder="Enter Your Password">
+            <button type="submit" class="btn btn-light mt-4">Submit</button>
+        </form>
+        {% if messages %}
+            <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }} text-light"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+    </div>
+
+{% endblock content %}
+
+
